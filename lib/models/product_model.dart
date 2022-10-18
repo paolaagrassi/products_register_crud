@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class ProductModel {
   String id;
   String name;
@@ -38,9 +39,9 @@ class ProductModel {
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
-      id: map['id'] as String,
+      id: map['id'].toString(),
       name: map['name'] as String,
-      price: map['price'] as double,
+      price: double.parse(map['price'].toString()),
       description: map['description'] as String,
     );
   }
