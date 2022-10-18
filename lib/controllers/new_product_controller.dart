@@ -1,8 +1,16 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class NewProductController {
   late final Dio dio;
+
+  late TextEditingController nameTextEditingController =
+      TextEditingController();
+  late TextEditingController priceTextEditingController =
+      TextEditingController();
+  late TextEditingController descriptionTextEditingController =
+      TextEditingController();
 
   NewProductController() {
     final httpLoger = PrettyDioLogger();
