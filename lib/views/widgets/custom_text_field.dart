@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class BuildTextField extends StatefulWidget {
   const BuildTextField(
-      {required this.labelText, this.controller, this.prefix, Key? key})
+      {required this.labelText,
+      required this.controller,
+      this.prefix,
+      this.validator,
+      this.inputFormatters,
+      this.keyboardType,
+      Key? key})
       : super(key: key);
 
+  final String? Function(String?)? validator;
+  final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? controller;
-  final Widget? labelText;
+  final TextInputType? keyboardType;
+  final String labelText;
   final Widget? prefix;
 
   @override
@@ -16,10 +26,10 @@ class BuildTextField extends StatefulWidget {
 class _BuildTextFieldState extends State<BuildTextField> {
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: widget.controller,
       decoration: InputDecoration(
-        label: widget.labelText,
+        labelText: widget.labelText,
         prefix: widget.prefix,
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
@@ -27,6 +37,9 @@ class _BuildTextFieldState extends State<BuildTextField> {
           ),
         ),
       ),
+      validator: widget.validator,
+      inputFormatters: widget.inputFormatters,
+      keyboardType: widget.keyboardType,
     );
   }
 }
