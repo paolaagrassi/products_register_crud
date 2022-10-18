@@ -1,8 +1,8 @@
-import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
+import 'package:products_register_crud/controllers/controllers.dart';
 import 'package:products_register_crud/models/product_model.dart';
 import 'package:products_register_crud/views/new_product_view.dart';
-import 'package:products_register_crud/views/widgets/custom_button.dart';
+import 'package:products_register_crud/views/widgets/product_card.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -14,19 +14,38 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   List<ProductModel> productList = <ProductModel>[];
 
+  final _controller = HomeViewController();
+
+  @override
+  void initState() {
+    fetchAllProducts();
+    super.initState();
+  }
+
+  Future<void> fetchAllProducts() async {
+    _controller.getAllProducts().then((products) {
+      if (products != null) {
+        setState(() {
+          productList = products;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: IconButton(
         splashColor: Colors.black,
         icon: const Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => const NewProductView(),
             ),
           );
+          fetchAllProducts();
         },
       ),
       appBar: AppBar(
@@ -35,32 +54,34 @@ class _HomeViewState extends State<HomeView> {
         centerTitle: true,
       ),
       body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: ExpansionTileCard(
-              title: Text('Exemplo ${index.toString()}'),
-              subtitle: const Text('R\$ '),
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      BuildButton(
-                        buttonTitle: 'Editar',
-                        width: 150,
-                      ),
-                      BuildButton(
-                        buttonTitle: 'Deletar',
-                        width: 150,
-                      ),
-                    ],
+        itemCount: productList.length,
+        itemBuilder: (context, count) {
+          final productModel = productList[count];
+
+          return ProductCard(
+            cardTitle: productModel.name,
+            cardPrice: productModel.price,
+            productModel: productModel,
+            onDelete: () async {
+              await _controller.deleteProduct(id: productModel.id);
+              setState(() {
+                fetchAllProducts();
+              });
+            },
+            onUpdate: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NewProductView(
+                    productModel: productModel,
                   ),
                 ),
-              ],
-            ),
+              );
+
+              setState(() {
+                fetchAllProducts();
+              });
+            },
           );
         },
       ),
