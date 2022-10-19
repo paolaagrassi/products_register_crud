@@ -104,6 +104,7 @@ class _NewProductViewState extends State<NewProductView> {
                                 ? 'Registrar'
                                 : 'Salvar'),
                             width: double.infinity,
+                            height: 50,
                             onPressed: isFormValid
                                 ? () {
                                     setState(() {

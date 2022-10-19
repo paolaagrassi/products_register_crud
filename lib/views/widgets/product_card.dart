@@ -32,12 +32,25 @@ class _ProductCardState extends State<ProductCard> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: ExpansionTileCard(
-        title: Text(widget.cardTitle),
+        title: Text(
+          widget.cardTitle,
+          style:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+        ),
         subtitle: Text('R\$' + widget.cardPrice.toString()),
+        shadowColor: Colors.blue,
         children: [
-          /* Text(
-            widget.cardDescription!,
-          ), */
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Row(
+              children: [
+                Text(
+                  'Descrição: ' + widget.cardDescription.toString(),
+                  textAlign: TextAlign.right,
+                ),
+              ],
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8),
             child: Row(
@@ -46,11 +59,13 @@ class _ProductCardState extends State<ProductCard> {
                 BuildButton(
                   buttonTitle: 'Editar',
                   width: 150,
+                  height: 30,
                   onPressed: widget.onUpdate,
                 ),
                 BuildButton(
                   buttonTitle: 'Deletar',
                   width: 150,
+                  height: 30,
                   onPressed: widget.onDelete,
                 ),
               ],
