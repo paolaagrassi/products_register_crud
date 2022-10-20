@@ -1,3 +1,4 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:products_register_crud/models/product_model.dart';
@@ -37,7 +38,7 @@ class _ProductCardState extends State<ProductCard> {
           style:
               const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
         ),
-        subtitle: Text('R\$' + widget.cardPrice.toString()),
+        subtitle: Text(UtilBrasilFields.obterReal(widget.cardPrice)),
         shadowColor: Colors.blue,
         children: [
           Padding(

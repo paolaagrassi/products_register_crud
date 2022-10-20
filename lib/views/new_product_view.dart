@@ -25,7 +25,7 @@ class _NewProductViewState extends State<NewProductView> {
     _controller.nameTextEditingController.text =
         widget.productModel?.name ?? '';
     _controller.priceTextEditingController.text =
-        widget.productModel?.price.toString() ?? '';
+        UtilBrasilFields.obterReal(widget.productModel?.price ?? 0.0);
     _controller.descriptionTextEditingController.text =
         widget.productModel?.description ?? '';
     super.initState();
