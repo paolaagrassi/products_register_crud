@@ -91,6 +91,7 @@ class _NewProductViewState extends State<NewProductView> {
                               FilteringTextInputFormatter.digitsOnly,
                               CentavosInputFormatter(),
                             ],
+                            keyboardType: TextInputType.number,
                           ),
                           const Divider(),
                           BuildTextField(
