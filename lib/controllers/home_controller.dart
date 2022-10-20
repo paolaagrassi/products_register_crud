@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:products_register_crud/models/product_model.dart';
@@ -25,17 +27,13 @@ class HomeViewController {
   }
 
   Future deleteProduct({required String id}) async {
-    try {
-      final response =
-          await dio.delete('http://192.168.1.7:8080/api/products/$id');
+    final response =
+        await dio.delete('http://192.168.1.7:8080/api/products/$id');
 
-      final rawList = response.data as List;
-
-      return rawList
-          .map((rawProduct) => ProductModel.fromMap(rawProduct))
-          .toList();
-    } catch (e) {
-      return [];
+    if (response.statusCode == 200) {
+      log("Deleted");
+    } else {
+      throw "Sorry! Unable to delete this post.";
     }
   }
 }
