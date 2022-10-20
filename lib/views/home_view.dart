@@ -135,7 +135,7 @@ class _HomeViewState extends State<HomeView> {
           ),
           const Padding(padding: EdgeInsets.all(30)),
           const Text(
-            'Ops! Parece que a Lista de Produtos está vazia.',
+            'A lista de produtos está vazia.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w500,
