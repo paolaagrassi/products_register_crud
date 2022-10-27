@@ -1,6 +1,7 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:products_register_crud/controllers/controllers.dart';
 import 'package:products_register_crud/models/product_model.dart';
 import 'package:validatorless/validatorless.dart';
@@ -108,9 +109,11 @@ class _NewProductViewState extends State<NewProductView> {
                             height: 50,
                             onPressed: isFormValid
                                 ? () {
-                                    setState(() {
-                                      isLoading = true;
-                                    });
+                                    Observer(
+                                      builder: (context) {
+                                        return _controller.loadIncrement();
+                                      },
+                                    );
 
                                     final productControllerName = _controller
                                         .nameTextEditingController.text;
@@ -155,7 +158,7 @@ class _NewProductViewState extends State<NewProductView> {
               ),
             ),
           ),
-          if (isLoading)
+          if (_controller.isLoading)
             Container(
               height: MediaQuery.of(context).size.height,
               width: double.infinity,

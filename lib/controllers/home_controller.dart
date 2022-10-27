@@ -1,13 +1,30 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:mobx/mobx.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:products_register_crud/models/product_model.dart';
 
-class HomeViewController {
+part 'home_controller.g.dart';
+
+class HomeViewController = _HomeViewControllerBase with _$HomeViewController;
+
+abstract class _HomeViewControllerBase with Store {
+  @observable
+  List<ProductModel> productList = <ProductModel>[];
+
+  @action
+  Future<void> fetchAllProducts() async {
+    getAllProducts().then((products) {
+      if (products != null) {
+        productList = products;
+      }
+    });
+  }
+
   late final Dio dio;
 
-  HomeViewController() {
+  _HomeViewControllerBase() {
     final httpLogger = PrettyDioLogger();
     dio = Dio()..interceptors.add(httpLogger);
   }

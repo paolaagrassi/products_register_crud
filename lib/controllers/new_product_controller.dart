@@ -1,9 +1,23 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mobx/mobx.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-class NewProductController {
+part 'new_product_controller.g.dart';
+
+class NewProductController = _NewProductControllerBase
+    with _$NewProductController;
+
+abstract class _NewProductControllerBase with Store {
   late final Dio dio;
+
+  @observable
+  bool isLoading = false;
+
+  @action
+  loadIncrement() {
+    isLoading = true;
+  }
 
   late TextEditingController nameTextEditingController =
       TextEditingController();
@@ -12,7 +26,7 @@ class NewProductController {
   late TextEditingController descriptionTextEditingController =
       TextEditingController();
 
-  NewProductController() {
+  _NewProductControllerBase() {
     final httpLoger = PrettyDioLogger();
     dio = Dio()..interceptors.add(httpLoger);
   }
