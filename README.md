@@ -2,7 +2,7 @@
 
 The application is a Product Register that results in a product list. 
 <br></br>
-:rocket: I made all the CRUD steps using Flutter, MVC pattern and RESTful API.
+:rocket: I made all the CRUD steps using Flutter, MVC pattern, MobX package and RESTful API.
 
 ![readme](https://user-images.githubusercontent.com/101572382/196950433-84c3ca3f-8c45-4123-ac22-4603ac723ae0.gif)
 ![readme_2](https://user-images.githubusercontent.com/101572382/196950518-dd51387f-74b1-423c-bfb3-088a09fee85a.gif)
