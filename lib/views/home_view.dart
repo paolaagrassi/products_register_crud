@@ -61,9 +61,7 @@ class _HomeViewState extends State<HomeView> {
                       cardDescription: productModel.description,
                       onDelete: () async {
                         await _controller.deleteProduct(id: productModel.id);
-                        /* setState(() {
-                              fetchAllProducts();
-                            }); */
+
                         _controller.fetchAllProducts();
 
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -102,9 +100,6 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         );
 
-                        /* setState(() {
-                              fetchAllProducts();
-                            }); */
                         _controller.fetchAllProducts();
                       },
                     );
